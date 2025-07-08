@@ -9,13 +9,13 @@
  :root{--brown:#7b5944;--brown-dark:#6a4834;--border:#bca697;--white:#fff}
  body{font-family:"Century","Libre Franklin",sans-serif;background:var(--brown-dark);color:var(--white);margin:40px}
  h2{margin-top:0;font-weight:900}
- table{width:640px;border-collapse:collapse;background:var(--brown)}
+ table{width:780px;border-collapse:collapse;background:var(--brown)}
  th,td{border:1px solid var(--border);padding:10px 12px;text-align:right;font-weight:900}
  th:first-child,td:first-child{text-align:left}
- input{width:120px;padding:6px 8px;background:var(--brown-dark);border:1px solid var(--border);color:var(--white);font-family:inherit;font-weight:900;text-align:right}
+ input{width:130px;padding:6px 8px;background:var(--brown-dark);border:1px solid var(--border);color:var(--white);font-family:inherit;font-weight:900;text-align:right}
  input::placeholder{color:#d8d0ca}
  .num{font-weight:900}
- section{max-width:640px;margin-top:22px;line-height:1.45;font-size:15px}
+ section{max-width:780px;margin-top:22px;line-height:1.45;font-size:15px}
  section h3{margin:8px 0 4px;font-weight:900}
  ul{margin:4px 0 8px 16px;padding:0}
  code{background:rgba(255,255,255,0.08);padding:0 4px;border-radius:3px}
@@ -23,7 +23,7 @@
 </head>
 <body>
 
-<h2>Meet &amp; Greet — Hızlı Fiyat Analizi</h2>
+<h2>Meet &amp; Greet — Hızlı Fiyat Analizi </h2>
 
 <table>
 <thead>
@@ -38,75 +38,99 @@
 </tr>
 <tr>
   <td>Talep Esnekliği (ε)</td>
-  <td class="num" id="oldEps">-0,57</td>
+  <td class="num" id="oldEps">-0.57</td>
   <td><input type="number" step="0.01" id="newEps" placeholder="-0.57" oninput="calc()"></td>
   <td class="num" id="epsPct">—</td>
+</tr>
+<tr>
+  <td>Birim Gider (€)</td>
+  <td class="num" id="unitCostOld">62</td>
+  <td><input type="number" id="unitCostInput" placeholder="62" oninput="calc()"></td>
+  <td></td>
 </tr>
 <tr><td>Yolcu Sayısı (pax)</td><td class="num" id="oldPax">23 480</td><td class="num" id="newPax">—</td><td></td></tr>
 <tr><td>Toplam Gelir (€)</td><td class="num" id="oldRev">5 095 160</td><td class="num" id="newRev">—</td><td></td></tr>
 <tr>
   <td>Toplam Gider (€)</td>
   <td class="num" id="oldCost">1 456 575</td>
-  <td><input type="number" id="newCost" placeholder="1 456 575" oninput="calc()"></td>
-  <td></td>
+  <td><input type="number" id="newCostInput" placeholder="otomatik" oninput="calc()"></td>
+  <td>Varsayılan: <em>Birim&nbsp;Gider × Yolcu</em><br><span id="autoCostInfo">—</span></td>
 </tr>
 <tr><td>EBITDAR (€)</td><td class="num" id="oldEbit">3 638 585</td><td class="num" id="newEbit">—</td><td></td></tr>
-<tr><td>EBITDAR Marjı</td><td class="num" id="oldMarj">71,4 %</td><td class="num" id="newMarj">—</td><td></td></tr>
+<tr><td>EBITDAR Marjı</td><td class="num" id="oldMarj">71.4 %</td><td class="num" id="newMarj">—</td><td></td></tr>
 </tbody>
 </table>
 
 <section>
-  <h3>Talep Esnekliği (ε) Nedir?</h3>
-  <ul>
-    <li><strong>ε&nbsp;&lt;&nbsp;0</strong> → Fiyat düşerse yolcu artar, fiyat yükselirse yolcu azalır.</li>
-    <li><strong>|ε|&nbsp;&lt;&nbsp;1</strong> → Talep ılımlı esnektir (yolcu yüzdesi, fiyat yüzdesinden küçük).</li>
-    <li>Örn. ε&nbsp;=&nbsp;-0,57 → %10 fiyat indirimi ≈ %5,7 yolcu artışı.</li>
-  </ul>
+<h3>Hesap Formülleri</h3>
+<p>
+  Yeni yolcu:&nbsp; <code>Q<sub>yeni</sub> = Q<sub>0</sub> × ( 1 + ε × ΔP / P<sub>0</sub> )</code><br>
+  Toplam gider:&nbsp; <code>Gider = Birim&nbsp;Gider × Yolcu</code> (elle değiştirilebilir)<br>
+  EBITDAR:&nbsp; <code>EBITDAR = (Fiyat × Yolcu) − Gider</code><br>
+  EBITDAR&nbsp;Marjı:&nbsp; <code>EBITDAR&nbsp;/&nbsp;Gelir</code>
+</p>
 
-  <h3>Hesap Formülleri</h3>
-  <p>
-    Yeni yolcu:&nbsp; <code>Q<sub>yeni</sub> = Q<sub>0</sub> × ( 1 + ε × ΔP / P<sub>0</sub> )</code><br>
-    EBITDAR:&nbsp; <code>EBITDAR = (Fiyat × Yolcu) − Toplam&nbsp;Gider</code><br>
-    EBITDAR&nbsp;Marjı:&nbsp; <code>EBITDAR&nbsp;/&nbsp;Gelir</code>
-  </p>
-
-  <h3>Model Varsayımları</h3>
-  <ul>
-    <li>Tüm giderler sabit kabul edildi (1 456 575 €).</li>
-    <li>Birim değişken maliyet hesaba katılmadı; büyük indirimlerde gerçek marj biraz daha düşük olabilir.</li>
-    <li>Esneklik yerel & lineer varsayıldı; büyük fiyat değişimlerinde davranış sapabilir.</li>
-  </ul>
+<h3>Notlar</h3>
+<ul>
+  <li>Toplam gider alanı boş bırakılırsa otomatik hesaplanır ve yan sütunda gösterilir.</li>
+  <li>İstersen manuel gider yazarak hesaplamayı override edebilirsin.</li>
+</ul>
 </section>
 
 <script>
-const P0=217, Q0=23480, COST0=1456575;
+const P0 = 217;
+const Q0 = 23480;
+const U0 = 62;
+const EPS0 = -0.57;
 
-function fmt(n,d=0){return n.toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+function fmt(num, d=0){
+  return num.toLocaleString('tr-TR',{minimumFractionDigits:d, maximumFractionDigits:d});
+}
 
 function calc(){
-  const pVal=parseFloat(document.getElementById('newPrice').value.replace(',','.'));
-  const eVal=parseFloat(document.getElementById('newEps').value.replace(',','.'));
-  const cInp=document.getElementById('newCost').value.replace(',','.');
-  const cost=cInp ? parseFloat(cInp) : COST0;
-
-  // yüzde gösterimi
-  document.getElementById('epsPct').textContent = (!isNaN(eVal) ? fmt(eVal*100,1)+' %' : '—');
-
-  if(isNaN(pVal)||pVal<=0||isNaN(eVal)){
-      ['newPax','newRev','newEbit','newMarj'].forEach(id=>document.getElementById(id).textContent='—');
-      return;
+  const priceInput = document.getElementById('newPrice');
+  const pVal = parseFloat(priceInput.value.replace(',', '.'));
+  if(isNaN(pVal) || pVal <= 0){
+    clearOutputs();
+    return;
   }
 
-  const priceChg=(pVal-P0)/P0;
-  const newPax=Math.round(Q0*(1+eVal*priceChg));
-  const rev=pVal*newPax;
-  const ebit=rev-cost;
-  const marj=ebit/rev;
+  const epsInput = document.getElementById('newEps');
+  const eVal = epsInput.value ? parseFloat(epsInput.value.replace(',', '.')) : EPS0;
+  document.getElementById('epsPct').textContent = fmt(eVal*100,1)+' %';
 
+  const unitInput = document.getElementById('unitCostInput');
+  const unitCost = unitInput.value ? parseFloat(unitInput.value.replace(',', '.')) : U0;
+
+  // Talep ve gelir
+  const priceChg = (pVal - P0) / P0;
+  const newPax = Math.round(Q0 * (1 + eVal * priceChg));
+  const rev = pVal * newPax;
+
+  // Gider hesaplama / manuel
+  const costInput = document.getElementById('newCostInput');
+  const manualCost = costInput.value ? parseFloat(costInput.value.replace(',', '.')) : NaN;
+  const autoCost = unitCost * newPax;
+  const cost = isNaN(manualCost) ? autoCost : manualCost;
+
+  // Otomatik gider bilgisi açıklama sütununda
+  const autoCostSpan = document.getElementById('autoCostInfo');
+  autoCostSpan.textContent = isNaN(manualCost) ? fmt(autoCost,0)+' €' : 'manüel: '+fmt(manualCost,0)+' €';
+
+  // EBITDAR
+  const ebit = rev - cost;
+  const marj = ebit / rev;
+
+  // Yazdır
   document.getElementById('newPax').textContent  = fmt(newPax);
   document.getElementById('newRev').textContent  = fmt(rev,0);
   document.getElementById('newEbit').textContent = fmt(ebit,0);
   document.getElementById('newMarj').textContent = fmt(marj*100,1)+' %';
+}
+
+function clearOutputs(){
+  ['newPax','newRev','newEbit','newMarj'].forEach(id=>document.getElementById(id).textContent='—');
+  document.getElementById('autoCostInfo').textContent='—';
 }
 </script>
 
