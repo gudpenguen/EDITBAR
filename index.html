@@ -2,28 +2,29 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>M&G Fiyat / Yolcu / EBITDAR</title>
+<title>M&G Fiyat / Yolcu / EBITDAR (Yalnızca Birim Gider)</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@900&display=swap" rel="stylesheet">
 <style>
  :root{--brown:#7b5944;--brown-dark:#6a4834;--border:#bca697;--white:#fff}
  body{font-family:"Century","Libre Franklin",sans-serif;background:var(--brown-dark);color:var(--white);margin:40px}
  h2{margin-top:0;font-weight:900}
- table{width:780px;border-collapse:collapse;background:var(--brown)}
+ table{width:820px;border-collapse:collapse;background:var(--brown)}
  th,td{border:1px solid var(--border);padding:10px 12px;text-align:right;font-weight:900}
  th:first-child,td:first-child{text-align:left}
  input{width:130px;padding:6px 8px;background:var(--brown-dark);border:1px solid var(--border);color:var(--white);font-family:inherit;font-weight:900;text-align:right}
  input::placeholder{color:#d8d0ca}
  .num{font-weight:900}
- section{max-width:780px;margin-top:22px;line-height:1.45;font-size:15px}
+ section{max-width:820px;margin-top:22px;line-height:1.45;font-size:15px}
  section h3{margin:8px 0 4px;font-weight:900}
  ul{margin:4px 0 8px 16px;padding:0}
  code{background:rgba(255,255,255,0.08);padding:0 4px;border-radius:3px}
+ .warning{margin-top:12px;font-size:14px;font-weight:700;color:#ffd}
 </style>
 </head>
 <body>
 
-<h2>Meet &amp; Greet — Hızlı Fiyat Analizi </h2>
+<h2>Meet &amp; Greet — Hızlı Fiyat Analizi <small>(Yalnızca Birim Gider)</small></h2>
 
 <table>
 <thead>
@@ -45,8 +46,8 @@
 <tr>
   <td>Birim Gider (€)</td>
   <td class="num" id="unitCostOld">62</td>
-  <td><input type="number" id="unitCostInput" placeholder="62" oninput="calc()"></td>
-  <td></td>
+  <td><input type="number" id="unitCostInput" placeholder="otomatik" oninput="calc()"></td>
+  <td><span id="unitCostInfo">Varsayılan: 62 €</span></td>
 </tr>
 <tr><td>Yolcu Sayısı (pax)</td><td class="num" id="oldPax">23 480</td><td class="num" id="newPax">—</td><td></td></tr>
 <tr><td>Toplam Gelir (€)</td><td class="num" id="oldRev">5 095 160</td><td class="num" id="newRev">—</td><td></td></tr>
@@ -61,30 +62,26 @@
 </tbody>
 </table>
 
+<p class="warning">⚠️ Toplam gider <strong>veya</strong> birim gider girişi yapabilirsiniz. <strong>İkisini aynı anda değiştirmeyin.</strong> Birini girerseniz diğeri otomatik hesaplanır.</p>
+
 <section>
 <h3>Hesap Formülleri</h3>
 <p>
   Yeni yolcu:&nbsp; <code>Q<sub>yeni</sub> = Q<sub>0</sub> × ( 1 + ε × ΔP / P<sub>0</sub> )</code><br>
-  Toplam gider:&nbsp; <code>Gider = Birim&nbsp;Gider × Yolcu</code> (elle değiştirilebilir)<br>
+  Toplam gider:&nbsp; <code>Gider = Birim&nbsp;Gider × Yolcu</code><br>
   EBITDAR:&nbsp; <code>EBITDAR = (Fiyat × Yolcu) − Gider</code><br>
   EBITDAR&nbsp;Marjı:&nbsp; <code>EBITDAR&nbsp;/&nbsp;Gelir</code>
 </p>
-
-<h3>Notlar</h3>
-<ul>
-  <li>Toplam gider alanı boş bırakılırsa otomatik hesaplanır ve yan sütunda gösterilir.</li>
-  <li>İstersen manuel gider yazarak hesaplamayı override edebilirsin.</li>
-</ul>
 </section>
 
 <script>
-const P0 = 217;
-const Q0 = 23480;
-const U0 = 62;
+const P0   = 217;
+const Q0   = 23480;
+const U0   = 62;
 const EPS0 = -0.57;
 
-function fmt(num, d=0){
-  return num.toLocaleString('tr-TR',{minimumFractionDigits:d, maximumFractionDigits:d});
+function fmt(num, d = 0){
+  return num.toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});
 }
 
 function calc(){
@@ -100,28 +97,45 @@ function calc(){
   document.getElementById('epsPct').textContent = fmt(eVal*100,1)+' %';
 
   const unitInput = document.getElementById('unitCostInput');
-  const unitCost = unitInput.value ? parseFloat(unitInput.value.replace(',', '.')) : U0;
+  const unitVal   = unitInput.value.replace(',', '.');
+  let   unitCost  = unitVal ? parseFloat(unitVal) : U0;
 
-  // Talep ve gelir
-  const priceChg = (pVal - P0) / P0;
-  const newPax = Math.round(Q0 * (1 + eVal * priceChg));
-  const rev = pVal * newPax;
+  // Yolcu & Gelir
+  const priceChg = (pVal-P0)/P0;
+  const newPax   = Math.round(Q0*(1 + eVal*priceChg));
+  const rev      = pVal * newPax;
 
-  // Gider hesaplama / manuel
+  // Gider & implied unit cost
   const costInput = document.getElementById('newCostInput');
-  const manualCost = costInput.value ? parseFloat(costInput.value.replace(',', '.')) : NaN;
-  const autoCost = unitCost * newPax;
-  const cost = isNaN(manualCost) ? autoCost : manualCost;
+  const costVal   = costInput.value.replace(',', '.');
+  const manualCost= costVal ? parseFloat(costVal) : NaN;
 
-  // Otomatik gider bilgisi açıklama sütununda
-  const autoCostSpan = document.getElementById('autoCostInfo');
-  autoCostSpan.textContent = isNaN(manualCost) ? fmt(autoCost,0)+' €' : 'manüel: '+fmt(manualCost,0)+' €';
+  let cost, impliedUnit;
+  if(isNaN(manualCost)){
+    cost = unitCost * newPax;
+    impliedUnit = unitCost;
+  }else{
+    cost = manualCost;
+    impliedUnit = newPax ? cost/newPax : 0;
+    unitCost = impliedUnit;
+    unitInput.value = fmt(impliedUnit,2);
+  }
 
-  // EBITDAR
+  // Update placeholders dynamically
+  if(!unitInput.value){
+    unitInput.placeholder = fmt(impliedUnit,2);
+  }
+  if(!costInput.value){
+    costInput.placeholder = 'otomatik';
+  }
+
+  document.getElementById('unitCostInfo').textContent = 'Varsayılan: ' + fmt(impliedUnit,2)+' €';
+  document.getElementById('autoCostInfo').textContent = fmt(cost,0)+' €';
+
+  // EBITDAR & marj
   const ebit = rev - cost;
-  const marj = ebit / rev;
+  const marj = rev ? ebit / rev : 0;
 
-  // Yazdır
   document.getElementById('newPax').textContent  = fmt(newPax);
   document.getElementById('newRev').textContent  = fmt(rev,0);
   document.getElementById('newEbit').textContent = fmt(ebit,0);
@@ -131,6 +145,8 @@ function calc(){
 function clearOutputs(){
   ['newPax','newRev','newEbit','newMarj'].forEach(id=>document.getElementById(id).textContent='—');
   document.getElementById('autoCostInfo').textContent='—';
+  document.getElementById('unitCostInfo').textContent='Varsayılan: 62 €';
+  document.getElementById('unitCostInput').placeholder='otomatik';
 }
 </script>
 
