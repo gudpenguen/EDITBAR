@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -8,244 +9,134 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* --------  GLOBAL  -------- */
-    *{box-sizing:border-box}
+    *{box-sizing:border-box;margin:0;padding:0}
     body{
-      font-family:'Montserrat',sans-serif;
-      line-height:1.6;
-      margin:0;
-      padding:20px;
-
-      /* --- İLK TEMADAN ARKA-PLAN --- */
-      background-image:url('https://www.igapass.com/_ui/responsive/common/images/template/bg-0001.jpg');
-      background-size:cover;
-      background-position:center;
-      background-repeat:no-repeat;
-      background-attachment:fixed;
-
-      color:#FFFFFF;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      min-height:100vh;
+      font-family:'Montserrat',sans-serif;line-height:1.6;padding:20px;
+      background:url('https://www.igapass.com/_ui/responsive/common/images/template/bg-0001.jpg') center/cover fixed;
+      color:#FFF;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;
     }
-
-    /* --------  CONTAINER  -------- */
     .container{
-      width:100%;
-      max-width:860px;          /* tablonuzla aynı genişlik */
-      padding:24px 24px 32px;
-      border-radius:10px;
-
-      /* Animasyonlu degrade (ilk tema) */
-      background:linear-gradient(-45deg,
-                  rgba(212,181,149,0.9),
-                  rgba(155,123,91,0.99),
-                  rgba(209,186,157,0.8));
-      background-size:400% 400%;
-      animation:gradientBG 10s ease infinite;
-
-      box-shadow:0 4px 100px rgba(0,0,0,0.55);
-      border:0 solid #C4A484;
-      position:relative;
+      width:100%;max-width:860px;padding:24px 24px 30px;border-radius:10px;
+      background:linear-gradient(-45deg,rgba(212,181,149,.9),rgba(155,123,91,.99),rgba(209,186,157,.8));
+      background-size:400% 400%;animation:gradientBG 10s ease infinite;
+      box-shadow:0 4px 100px rgba(0,0,0,.55);border:0 solid #C4A484;
     }
-    @keyframes gradientBG{
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-
-    /* --------  TYPOGRAPHY  -------- */
-    h2{margin:0 0 18px;font-weight:500;letter-spacing:.4px;text-align:center}
-
-    /* --------  TABLE / INPUT  -------- */
-    table{
-      width:100%;
-      border-collapse:collapse;
-      background:rgba(0,0,0,0.25);          /* hafif transparan arka plan */
-      border-radius:4px;
-      overflow:hidden;
-    }
-    th,td{
-      border:1px solid #DCC7B7;
-      padding:10px 12px;
-      text-align:right;
-      font-weight:600;
-      color:#FFFFFF;
-    }
-    th:first-child,td:first-child{text-align:left}
-    th{background:rgba(0,0,0,0.35)}
-
-    input{
-      width:140px;
-      padding:6px 8px;
-      background:#FFFFFF;
-      border:1px solid #C4A484;
-      color:#000000;
-      font-family:inherit;
-      font-weight:600;
-      text-align:right;
-      border-radius:4px;
-    }
-    input::placeholder{color:#999}
-    input[readonly]{color:#777;background:#f0f0f0}
-
-    .num{font-weight:700}
-
-    /* --------  INFO / WARNING  -------- */
-    .warning{
-      margin-top:18px;
-      font-size:14px;
-      font-weight:600;
-      color:#FFFDD0;
-      line-height:1.45;
-    }
-
-    /* --------  SECTION FORMÜLLER -------- */
-    section{
-      margin-top:26px;
-      font-size:15px;
-      line-height:1.5;
-    }
-    section h3{margin:0 0 6px;font-weight:600}
-    code{
-      background:rgba(255,255,255,0.15);
-      padding:0 4px;
-      border-radius:3px;
-    }
+    @keyframes gradientBG{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+    h2{margin-bottom:18px;text-align:center;font-weight:500}
+    table{width:100%;border-collapse:collapse;background:rgba(0,0,0,.25);border-radius:4px;overflow:hidden}
+    th,td{border:1px solid #DCC7B7;padding:10px 12px;text-align:right;font-weight:600;color:#FFF}
+    th:first-child,td:first-child{text-align:left}th{background:rgba(0,0,0,.35)}
+    input{width:140px;padding:6px 8px;background:#FFF;border:1px solid #C4A484;border-radius:4px;color:#000;font-weight:600;text-align:right}
+    input::placeholder{color:#999}input[readonly]{background:#f3f3f3;color:#777}.num{font-weight:700}
+    .warning{margin-top:18px;font-size:14px;font-weight:600;color:#FFFDD0;line-height:1.45}
+    section{margin-top:26px;font-size:15px;line-height:1.5}section h3{margin-bottom:6px;font-weight:600}
+    code{background:rgba(255,255,255,.15);padding:0 4px;border-radius:3px}
   </style>
 </head>
 <body>
-
 <div class="container">
-
   <h2>Meet &amp; Greet — Hızlı Fiyat Analizi</h2>
-
   <table>
-  <thead>
-    <tr><th>Gösterge</th><th>Mevcut</th><th>Yeni</th><th>Açıklama</th></tr>
-  </thead>
-  <tbody>
-    <!-- 1) Birim Fiyat -->
-    <tr>
-      <td>*Birim Fiyat (€)</td>
-      <td class="num" id="oldPrice">217</td>
-      <td><input type="number" id="newPrice" placeholder="yeni fiyat" oninput="priceChanged()"></td>
-      <td></td>
-    </tr>
-    <!-- 2) Toplam Gider -->
-    <tr>
-      <td>*Toplam Gider (€)</td>
-      <td class="num" id="oldCost">1 456 575</td>
-      <td><input type="number" id="newCostInput" placeholder="otomatik" oninput="calc()"></td>
-      <td>Varsayılan: <em>Birim&nbsp;Gider × Yolcu</em><br><span id="autoCostInfo">—</span></td>
-    </tr>
-    <!-- 3) Yolcu Sayısı -->
-    <tr>
-      <td>*Yolcu Sayısı (pax)</td>
-      <td class="num" id="oldPax">23 480</td>
-      <td><input type="number" id="newPaxInput" placeholder="otomatik" oninput="paxChanged()"></td>
-      <td></td>
-    </tr>
-    <!-- Kalan satırlar -->
-    <tr>
-      <td>Talep Esnekliği (ε)</td>
-      <td class="num" id="oldEps">-0.57</td>
-      <td><input type="number" id="newEps" placeholder="otomatik" readonly></td>
-      <td class="num" id="epsPct">—</td>
-    </tr>
-    <tr>
-      <td>Birim Gider (€)</td>
-      <td class="num" id="unitCostOld">62</td>
-      <td><input type="number" id="unitCostInput" placeholder="otomatik" oninput="calc()"></td>
-      <td><span id="unitCostInfo">Varsayılan: 62 €</span></td>
-    </tr>
-    <tr><td>Toplam Gelir (€)</td><td class="num" id="oldRev">5 095 160</td><td class="num" id="newRev">—</td><td></td></tr>
-    <tr><td>EBITDAR (€)</td><td class="num" id="oldEbit">3 638 585</td><td class="num" id="newEbit">—</td><td></td></tr>
-    <tr><td>EBITDAR Marjı</td><td class="num" id="oldMarj">71.4 %</td><td class="num" id="newMarj">—</td><td></td></tr>
-  </tbody>
+    <thead><tr><th>Gösterge</th><th>Mevcut</th><th>Yeni</th><th>Açıklama</th></tr></thead>
+    <tbody>
+      <tr><td>*Birim Fiyat (€)</td><td class="num" id="oldPrice">217</td>
+          <td><input type="number" id="newPrice" placeholder="yeni fiyat" oninput="priceChanged()"></td><td></td></tr>
+      <tr><td>*Toplam Gider (€)</td><td class="num" id="oldCost">1 456 575</td>
+          <td><input type="number" id="newCostInput" placeholder="otomatik" oninput="calc()"></td>
+          <td>Varsayılan: <em>Birim&nbsp;Gider × Yolcu</em><br><span id="autoCostInfo">—</span></td></tr>
+      <tr><td>*Yolcu Sayısı (pax)</td><td class="num" id="oldPax">23 480</td>
+          <td><input type="number" id="newPaxInput" placeholder="otomatik" oninput="paxChanged()"></td><td></td></tr>
+      <tr><td>Talep Esnekliği (ε)</td><td class="num" id="oldEps">-0.57</td>
+          <td><input type="number" step="0.01" id="newEps"
+                     placeholder="otomatik" onchange="epsChanged()"></td>
+          <td class="num" id="epsPct">—</td></tr>
+      <tr><td>Birim Gider (€)</td><td class="num" id="unitCostOld">62</td>
+          <td><input type="number" id="unitCostInput" placeholder="otomatik" oninput="calc()"></td>
+          <td><span id="unitCostInfo">Varsayılan: 62 €</span></td></tr>
+      <tr><td>Toplam Gelir (€)</td><td class="num" id="oldRev">5 095 160</td><td class="num" id="newRev">—</td><td></td></tr>
+      <tr><td>EBITDAR (€)</td><td class="num" id="oldEbit">3 638 585</td><td class="num" id="newEbit">—</td><td></td></tr>
+      <tr><td>EBITDAR Marjı</td><td class="num" id="oldMarj">71.4 %</td><td class="num" id="newMarj">—</td><td></td></tr>
+    </tbody>
   </table>
 
-  <p class="warning">⚠️ Toplam gider <strong>veya</strong> birim gider girişi yapabilirsiniz. <strong>İkisini aynı anda değiştirmeyin.</strong><br>
-  ⚠️ Yolcu sayısını değiştirirseniz ε otomatik hesaplanır. Fiyat her değiştiğinde yolcu otomatik güncellenir; gerekirse tekrar pax girerek üzerine yazabilirsiniz.<br>
-  ⚠️ Mevcut veriler 2025 Ocak – Nisan dönemi içindir; aylık hesaplamalarda dikkate almayınız.</p>
+  <p class="warning">
+    ⚠️ Toplam gider <strong>veya</strong> birim gider girişi yapabilirsiniz. <strong>İkisini aynı anda değiştirmeyin.</strong><br>
+    ⚠️ Yolcu sayısını değiştirirseniz ε otomatik hesaplanır. Fiyat her değiştiğinde yolcu otomatik güncellenir; gerekirse pax girerek üzerine yazabilirsiniz.<br>
+    ⚠️ Veriler 2025 Ocak–Nisan dönemi içindir; aylık hesaplamalarda dikkate almayınız.
+  </p>
 
   <section>
     <h3>Hesap Formülleri</h3>
-    <p>
-      Yeni&nbsp;yolcu:&nbsp; <code>Q<sub>yeni</sub> = Q<sub>0</sub> × ( 1 + ε × ΔP / P<sub>0</sub> )</code><br>
-      ε&nbsp;(otomatik):&nbsp; <code>ε = (Q<sub>yeni</sub>/Q<sub>0</sub> − 1) × (P<sub>0</sub>/ΔP)</code><br>
-      Toplam&nbsp;gider:&nbsp; <code>Gider = Birim&nbsp;Gider × Yolcu</code><br>
-      EBITDAR:&nbsp; <code>EBITDAR = (Fiyat × Yolcu) − Gider</code><br>
-      EBITDAR Marjı:&nbsp; <code>EBITDAR / Gelir</code>
-    </p>
+    <p>Yeni&nbsp;yolcu: <code>Q<sub>yeni</sub> = Q<sub>0</sub> × (1 + ε × ΔP / P<sub>0</sub>)</code><br>
+       ε (otomatik): <code>ε = (Q<sub>yeni</sub>/Q<sub>0</sub> − 1) × (P<sub>0</sub>/ΔP)</code><br>
+       Gider: <code>Birim Gider × Yolcu</code><br>
+       EBITDAR: <code>(Fiyat × Yolcu) − Gider</code><br>
+       Marj: <code>EBITDAR / Gelir</code></p>
   </section>
+</div>
 
-</div><!-- /.container -->
-
-<!-- ----------------  HESAPLAMA SCRIPTİ  ---------------- -->
 <script>
-const P0  = 217;
-const Q0  = 23480;
-const U0  = 62;
-const EPS0 = -0.57;
+const P0  = 217, Q0 = 23480, U0 = 62, EPS0 = -0.57;
+let manualEps = null;   // kullanıcı ε girdiyse tutulur
 
 function fmt(n,d=0){return n.toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});}
 
-function priceChanged(){document.getElementById('newPaxInput').value='';calc();}
-function paxChanged(){calc();}
+function priceChanged(){manualEps=null;document.getElementById('newPaxInput').value='';calc();}
+function paxChanged(){manualEps=null;calc();}
+
+function epsChanged(){
+  const epsVal = parseFloatOrNull('newEps');
+  const priceVal = parseFloatOrNull('newPrice');
+  if(epsVal===null || priceVal===null || priceVal<=0) return;
+  const deltaP = priceVal - P0;
+  if(deltaP===0) return;
+  const newPax = Math.round(Q0 * (1 + epsVal * deltaP / P0));
+  document.getElementById('newPaxInput').value = newPax;
+  manualEps = epsVal;   // calc() bunu kullanacak
+  calc();
+}
 
 function calc(){
   const priceVal = parseFloatOrNull('newPrice');
   if(priceVal===null || priceVal<=0){clearOutputs();return;}
 
-  const unitVal = parseFloatOrNull('unitCostInput');
+  const unitVal  = parseFloatOrNull('unitCostInput');
   const unitCost = unitVal!==null ? unitVal : U0;
+  const paxVal   = parseIntOrNull('newPaxInput');
+  const deltaP   = priceVal - P0;
 
-  const paxVal = parseIntOrNull('newPaxInput');
-  const deltaP = priceVal-P0;
-
-  let epsilon, newPax;
-  if(paxVal!==null){
-    epsilon = (deltaP!==0) ? ((paxVal/Q0)-1)*(P0/deltaP) : EPS0;
+  let epsilon,newPax;
+  if(manualEps!==null){
+    epsilon = manualEps;
+    newPax  = paxVal!==null ? paxVal : Math.round(Q0*(1+epsilon*deltaP/P0));
+  }else if(paxVal!==null){
+    epsilon = (deltaP!==0)?((paxVal/Q0)-1)*(P0/deltaP):EPS0;
     newPax  = paxVal;
   }else{
     epsilon = EPS0;
     newPax  = Math.round(Q0*(1+epsilon*deltaP/P0));
     document.getElementById('newPaxInput').placeholder = fmt(newPax);
   }
-  document.getElementById('newEps').value = fmt(epsilon,2);
+
+  if(manualEps===null){document.getElementById('newEps').value = fmt(epsilon,2);}
   document.getElementById('epsPct').textContent = fmt(epsilon*100,1)+' %';
 
   const costManual = parseFloatOrNull('newCostInput');
   const cost = costManual!==null ? costManual : unitCost*newPax;
-  if(costManual===null){
-    document.getElementById('newCostInput').placeholder='otomatik';
-  }
+  if(costManual===null){document.getElementById('newCostInput').placeholder='otomatik';}
   const impliedUnit = cost/newPax;
-  if(unitVal===null){
-    document.getElementById('unitCostInput').placeholder = fmt(impliedUnit,2);
-  }
+  if(unitVal===null){document.getElementById('unitCostInput').placeholder = fmt(impliedUnit,2);}
   document.getElementById('unitCostInfo').textContent = 'Varsayılan: '+fmt(impliedUnit,2)+' €';
   document.getElementById('autoCostInfo').textContent = fmt(cost,0)+' €';
 
-  const rev  = priceVal*newPax;
-  const ebit = rev-cost;
-  const marj = rev ? ebit/rev : 0;
-
+  const rev = priceVal*newPax, ebit = rev-cost, marj = rev?ebit/rev:0;
   document.getElementById('newRev').textContent  = fmt(rev,0);
   document.getElementById('newEbit').textContent = fmt(ebit,0);
   document.getElementById('newMarj').textContent = fmt(marj*100,1)+' %';
 }
 
-function parseFloatOrNull(id){
-  const v=document.getElementById(id).value.replace(',','.');
-  return v ? parseFloat(v) : null;
-}
-function parseIntOrNull(id){
-  const v=document.getElementById(id).value.replace(',','.');
-  return v ? parseInt(v) : null;
-}
+function parseFloatOrNull(id){const v=document.getElementById(id).value.replace(',','.');return v?parseFloat(v):null;}
+function parseIntOrNull(id){const v=document.getElementById(id).value.replace(',','.');return v?parseInt(v):null;}
 function clearOutputs(){
   ['newRev','newEbit','newMarj'].forEach(i=>document.getElementById(i).textContent='—');
   document.getElementById('epsPct').textContent='—';
@@ -253,6 +144,5 @@ function clearOutputs(){
   document.getElementById('autoCostInfo').textContent='—';
 }
 </script>
-
 </body>
 </html>
