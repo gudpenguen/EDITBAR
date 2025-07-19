@@ -1,41 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>M&G Fiyat / Yolcu / EBITDAR (Dinamik Pax-Epsilon)</title>
+<meta charset="utf-8">
+<title>Meet & Greet – Analiz + Asistan Planı</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:'Montserrat',sans-serif;line-height:1.6;padding:20px;
-      background:url('https://www.igapass.com/_ui/responsive/common/images/template/bg-0001.jpg') center/cover fixed;
-      color:#FFF;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;
-    }
-    .container{
-      width:100%;max-width:860px;padding:24px 24px 30px;border-radius:10px;
-      background:linear-gradient(-45deg,rgba(212,181,149,.9),rgba(155,123,91,.99),rgba(209,186,157,.8));
-      background-size:400% 400%;animation:gradientBG 10s ease infinite;
-      box-shadow:0 4px 100px rgba(0,0,0,.55);border:0 solid #C4A484;
-    }
-    @keyframes gradientBG{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-    h2{margin-bottom:18px;text-align:center;font-weight:500}
-    table{width:100%;border-collapse:collapse;background:rgba(0,0,0,.25);border-radius:4px;overflow:hidden}
-    th,td{border:1px solid #DCC7B7;padding:10px 12px;text-align:right;font-weight:600;color:#FFF}
-    th:first-child,td:first-child{text-align:left}th{background:rgba(0,0,0,.35)}
-    input{width:140px;padding:6px 8px;background:#FFF;border:1px solid #C4A484;border-radius:4px;color:#000;font-weight:600;text-align:right}
-    input::placeholder{color:#999}input[readonly]{background:#f3f3f3;color:#777}.num{font-weight:700}
-    .warning{margin-top:18px;font-size:14px;font-weight:600;color:#FFFDD0;line-height:1.45}
-    section{margin-top:26px;font-size:15px;line-height:1.5}section h3{margin-bottom:6px;font-weight:600}
-    code{background:rgba(255,255,255,.15);padding:0 4px;border-radius:3px}
-  </style>
+<style>
+  /* --------- GENEL --------- */
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Montserrat',sans-serif;
+    line-height:1.6;
+    padding:24px;
+    background:url('https://www.igapass.com/_ui/responsive/common/images/template/bg-0001.jpg') center/cover fixed;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    gap:40px;           /* iki container arası boşluk */
+    align-items:center;
+    min-height:100vh;
+  }
+
+  /* --------- DEGRADE CONTAINER --------- */
+  .container{
+    width:100%;
+    max-width:880px;
+    padding:24px 24px 30px;
+    border-radius:10px;
+    background:linear-gradient(-45deg,
+                rgba(212,181,149,.9),
+                rgba(155,123,91,.99),
+                rgba(209,186,157,.8));
+    background-size:400% 400%;
+    animation:grad 10s ease infinite;
+    box-shadow:0 4px 100px rgba(0,0,0,.55);
+  }
+  @keyframes grad{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+
+  h2{margin-bottom:18px;text-align:center;font-weight:500}
+
+  /* --------- TABLO (1. araç) --------- */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    background:rgba(0,0,0,.25);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  th,td{
+    border:1px solid #DCC7B7;
+    padding:10px 12px;
+    text-align:right;
+    font-weight:600;
+    color:#fff;
+  }
+  th:first-child,td:first-child{text-align:left}
+  th{background:rgba(0,0,0,.35)}
+
+  input{
+    width:140px;
+    padding:6px 8px;
+    background:#fff;
+    border:1px solid #C4A484;
+    border-radius:4px;
+    color:#000;
+    font-weight:600;
+    text-align:right;
+  }
+  input::placeholder{color:#999}
+  input[readonly]{background:#f3f3f3;color:#777}
+  .num{font-weight:700}
+
+  .warning{
+    margin-top:18px;
+    font-size:14px;
+    font-weight:600;
+    color:#FFFDD0;
+    line-height:1.45;
+  }
+  section{margin-top:26px;font-size:15px;line-height:1.5}
+  section h3{margin-bottom:6px;font-weight:600}
+  code{background:rgba(255,255,255,.15);padding:0 4px;border-radius:3px}
+
+  /* --------- KUTU (2. araç) --------- */
+  .kutu{
+    background:#fff;
+    color:#222;
+    border:1px solid #ccc;
+    border-radius:6px;
+    padding:1.4rem;
+  }
+  .kutu h3{margin-top:0;font-size:1.15rem;color:#222}
+  .kutu label{display:block;margin:.9rem 0 .25rem;font-weight:600}
+  .kutu input{width:140px;padding:.4rem .55rem;font-size:1rem;border:1px solid #aaa}
+  .out{margin-top:1.2rem;line-height:1.6;font-weight:bold;white-space:pre-line}
+  .info{margin-top:.8rem;font-size:.9rem;color:#555;white-space:pre-line}
+</style>
 </head>
 <body>
-<div class="container">
-  <h2>Meet &amp; Greet — Hızlı Fiyat Analizi</h2>
+
+<!-- 1) FİYAT / EBITDAR ANALİZİ ------------------------------------------------>
+<div class="container" id="fiyatModul">
+  <h2>Fiyat Değişimi → EBITDAR Analizi</h2>
+
   <table>
     <thead><tr><th>Gösterge</th><th>Mevcut</th><th>Yeni</th><th>Açıklama</th></tr></thead>
     <tbody>
@@ -43,12 +112,11 @@
           <td><input type="number" id="newPrice" placeholder="yeni fiyat" oninput="priceChanged()"></td><td></td></tr>
       <tr><td>*Toplam Gider (€)</td><td class="num" id="oldCost">1 456 575</td>
           <td><input type="number" id="newCostInput" placeholder="otomatik" oninput="calc()"></td>
-          <td>Varsayılan: <em>Birim&nbsp;Gider × Yolcu</em><br><span id="autoCostInfo">—</span></td></tr>
+          <td>Varsayılan: <em>Birim Gider × Yolcu</em><br><span id="autoCostInfo">—</span></td></tr>
       <tr><td>*Yolcu Sayısı (pax)</td><td class="num" id="oldPax">23 480</td>
           <td><input type="number" id="newPaxInput" placeholder="otomatik" oninput="paxChanged()"></td><td></td></tr>
       <tr><td>Talep Esnekliği (ε)</td><td class="num" id="oldEps">-0.57</td>
-          <td><input type="number" step="0.01" id="newEps"
-                     placeholder="otomatik" onchange="epsChanged()"></td>
+          <td><input type="number" step="0.01" id="newEps" placeholder="otomatik" onchange="epsChanged()"></td>
           <td class="num" id="epsPct">—</td></tr>
       <tr><td>Birim Gider (€)</td><td class="num" id="unitCostOld">62</td>
           <td><input type="number" id="unitCostInput" placeholder="otomatik" oninput="calc()"></td>
@@ -60,81 +128,96 @@
   </table>
 
   <p class="warning">
-    ⚠️ Toplam gider <strong>veya</strong> birim gider girişi yapabilirsiniz. <strong>İkisini aynı anda değiştirmeyin.</strong><br>
-    ⚠️ Yolcu sayısını değiştirirseniz ε otomatik hesaplanır. Fiyat her değiştiğinde yolcu otomatik güncellenir; gerekirse pax girerek üzerine yazabilirsiniz.<br>
-    ⚠️ Veriler 2025 Ocak–Nisan dönemi içindir; aylık hesaplamalarda dikkate almayınız.
+    ⚠️ Toplam gider <strong>veya</strong> birim gider girişi yapabilirsiniz.<br>
+    ⚠️ Yolcu sayısını değiştirirseniz ε otomatik hesaplanır.<br>
+    ⚠️ Veriler 2025 Ocak–Nisan dönemi içindir.
   </p>
 
   <section>
-    <h3>Hesap Formülleri</h3>
+    <h3>Formüller</h3>
     <p>Yeni&nbsp;yolcu: <code>Q<sub>yeni</sub> = Q<sub>0</sub> × (1 + ε × ΔP / P<sub>0</sub>)</code><br>
        ε (otomatik): <code>ε = (Q<sub>yeni</sub>/Q<sub>0</sub> − 1) × (P<sub>0</sub>/ΔP)</code><br>
-       Gider: <code>Birim Gider × Yolcu</code><br>
-       EBITDAR: <code>(Fiyat × Yolcu) − Gider</code><br>
-       Marj: <code>EBITDAR / Gelir</code></p>
+       EBITDAR: <code>(Fiyat × Yolcu) − Gider</code></p>
   </section>
 </div>
 
+<!-- 2) ASİSTAN PLANLAYICI ---------------------------------------------------->
+<div class="container" id="asistanModul">
+  <div class="kutu">
+    <h3>Günlük Operasyon → Asistan Planı</h3>
+
+    <label>Günlük toplam operasyon
+      <input id="ops" type="number" min="0" value="264">
+    </label>
+
+    <label>1 asistanın vardiyada taşıyacağı<br>maks. operasyon
+      <input id="cap" type="number" min="1" value="8">
+    </label>
+
+    <label>Sabah vardiya payı (%) <small>(geri kalanı gece)</small>
+      <input id="mShare" type="number" min="0" max="100" value="60">
+    </label>
+
+    <div id="assistOut" class="out"></div>
+
+    <div class="info">
+⟲ Hesap mantığı
+──────────────────
+Toplam Asistan = ⌈ Günlük Ops ÷ Kapasite/Asistan ⌉
+
+Sabah Asistan  = ⌈ Toplam Asistan × (Sabah Payı %) ⌉
+Gece Asistan   = Toplam Asistan − Sabah Asistan
+
+Vardiya Kapasitesi = Asistan Sayısı × Kapasite/Asistan
+    </div>
+  </div>
+</div>
+
+<!-- -------------------  SCRIPT  ------------------- -->
 <script>
-const P0  = 217, Q0 = 23480, U0 = 62, EPS0 = -0.57;
-let manualEps = null;   // kullanıcı ε girdiyse tutulur
+/* === 1) FİYAT / EBITDAR === */
+const P0=217,Q0=23480,U0=62,EPS0=-0.57;
+let manualEps=null;
 
 function fmt(n,d=0){return n.toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});}
-
 function priceChanged(){manualEps=null;document.getElementById('newPaxInput').value='';calc();}
 function paxChanged(){manualEps=null;calc();}
-
 function epsChanged(){
-  const epsVal = parseFloatOrNull('newEps');
-  const priceVal = parseFloatOrNull('newPrice');
-  if(epsVal===null || priceVal===null || priceVal<=0) return;
-  const deltaP = priceVal - P0;
-  if(deltaP===0) return;
-  const newPax = Math.round(Q0 * (1 + epsVal * deltaP / P0));
-  document.getElementById('newPaxInput').value = newPax;
-  manualEps = epsVal;   // calc() bunu kullanacak
-  calc();
+  const epsVal=parseFloatOrNull('newEps'),priceVal=parseFloatOrNull('newPrice');
+  if(epsVal===null||priceVal===null||priceVal<=0)return;
+  const deltaP=priceVal-P0;if(deltaP===0)return;
+  const newPax=Math.round(Q0*(1+epsVal*deltaP/P0));
+  document.getElementById('newPaxInput').value=newPax;manualEps=epsVal;calc();
 }
-
 function calc(){
-  const priceVal = parseFloatOrNull('newPrice');
-  if(priceVal===null || priceVal<=0){clearOutputs();return;}
-
-  const unitVal  = parseFloatOrNull('unitCostInput');
-  const unitCost = unitVal!==null ? unitVal : U0;
-  const paxVal   = parseIntOrNull('newPaxInput');
-  const deltaP   = priceVal - P0;
+  const priceVal=parseFloatOrNull('newPrice');
+  if(priceVal===null||priceVal<=0){clearOutputs();return;}
+  const unitVal=parseFloatOrNull('unitCostInput');
+  const unitCost=unitVal!==null?unitVal:U0;
+  const paxVal=parseIntOrNull('newPaxInput');
+  const deltaP=priceVal-P0;
 
   let epsilon,newPax;
-  if(manualEps!==null){
-    epsilon = manualEps;
-    newPax  = paxVal!==null ? paxVal : Math.round(Q0*(1+epsilon*deltaP/P0));
-  }else if(paxVal!==null){
-    epsilon = (deltaP!==0)?((paxVal/Q0)-1)*(P0/deltaP):EPS0;
-    newPax  = paxVal;
-  }else{
-    epsilon = EPS0;
-    newPax  = Math.round(Q0*(1+epsilon*deltaP/P0));
-    document.getElementById('newPaxInput').placeholder = fmt(newPax);
-  }
+  if(manualEps!==null){epsilon=manualEps;newPax=paxVal!==null?paxVal:Math.round(Q0*(1+epsilon*deltaP/P0));}
+  else if(paxVal!==null){epsilon=(deltaP!==0)?((paxVal/Q0)-1)*(P0/deltaP):EPS0;newPax=paxVal;}
+  else{epsilon=EPS0;newPax=Math.round(Q0*(1+epsilon*deltaP/P0));document.getElementById('newPaxInput').placeholder=fmt(newPax);}
 
-  if(manualEps===null){document.getElementById('newEps').value = fmt(epsilon,2);}
-  document.getElementById('epsPct').textContent = fmt(epsilon*100,1)+' %';
+  if(manualEps===null)document.getElementById('newEps').value=fmt(epsilon,2);
+  document.getElementById('epsPct').textContent=fmt(epsilon*100,1)+' %';
 
-  const costManual = parseFloatOrNull('newCostInput');
-  const cost = costManual!==null ? costManual : unitCost*newPax;
-  if(costManual===null){document.getElementById('newCostInput').placeholder='otomatik';}
-  const impliedUnit = cost/newPax;
-  if(unitVal===null){document.getElementById('unitCostInput').placeholder = fmt(impliedUnit,2);}
-  document.getElementById('unitCostInfo').textContent = 'Varsayılan: '+fmt(impliedUnit,2)+' €';
-  document.getElementById('autoCostInfo').textContent = fmt(cost,0)+' €';
+  const costManual=parseFloatOrNull('newCostInput');
+  const cost=costManual!==null?costManual:unitCost*newPax;
+  if(costManual===null)document.getElementById('newCostInput').placeholder='otomatik';
+  const impliedUnit=cost/newPax;
+  if(unitVal===null)document.getElementById('unitCostInput').placeholder=fmt(impliedUnit,2);
+  document.getElementById('unitCostInfo').textContent='Varsayılan: '+fmt(impliedUnit,2)+' €';
+  document.getElementById('autoCostInfo').textContent=fmt(cost,0)+' €';
 
-  const rev = priceVal*newPax, ebit = rev-cost, marj = rev?ebit/rev:0;
-  document.getElementById('newRev').textContent  = fmt(rev,0);
-  document.getElementById('newEbit').textContent = fmt(ebit,0);
-  document.getElementById('newMarj').textContent = fmt(marj*100,1)+' %';
+  const rev=priceVal*newPax,ebit=rev-cost,marj=rev?ebit/rev:0;
+  document.getElementById('newRev').textContent=fmt(rev,0);
+  document.getElementById('newEbit').textContent=fmt(ebit,0);
+  document.getElementById('newMarj').textContent=fmt(marj*100,1)+' %';
 }
-
 function parseFloatOrNull(id){const v=document.getElementById(id).value.replace(',','.');return v?parseFloat(v):null;}
 function parseIntOrNull(id){const v=document.getElementById(id).value.replace(',','.');return v?parseInt(v):null;}
 function clearOutputs(){
@@ -143,6 +226,39 @@ function clearOutputs(){
   document.getElementById('unitCostInfo').textContent='Varsayılan: 62 €';
   document.getElementById('autoCostInfo').textContent='—';
 }
+
+/* === 2) ASİSTAN PLANLAYICI === */
+const opsInp=document.getElementById('ops'),
+      capInp=document.getElementById('cap'),
+      shareInp=document.getElementById('mShare'),
+      assistOut=document.getElementById('assistOut');
+
+function ceil(x){return Math.max(0,Math.ceil(x));}
+function asistCalc(){
+  const totalOps=+opsInp.value,
+        cap=+capInp.value||1;
+  let share=+shareInp.value;
+  share=Math.min(100,Math.max(0,share));
+  shareInp.value=share;
+
+  const totalAssist=ceil(totalOps/cap);
+  const mornAssist=ceil(totalAssist*share/100);
+  const nightAssist=totalAssist-mornAssist;
+  const capMorn=mornAssist*cap,
+        capNight=nightAssist*cap;
+
+  assistOut.textContent=
+    `Toplam asistan    : ${totalAssist}\n`+
+    `  • Sabah vardiyası: ${mornAssist}  (kapasite: ${capMorn} ops)\n`+
+    `  • Gece  vardiyası: ${nightAssist} (kapasite: ${capNight} ops)`;
+}
+
+/* Sayfa yüklendiğinde hesapla + canlı güncelle */
+document.addEventListener('DOMContentLoaded',()=>{
+  calc();
+  asistCalc();
+  [opsInp,capInp,shareInp].forEach(inp=>inp.addEventListener('input',asistCalc));
+});
 </script>
 </body>
 </html>
